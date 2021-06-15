@@ -27,7 +27,7 @@ public class FlightManager implements Serializable {
         }
 
         for (Flight f : allFlights.values()) {
-            if (f.getArrival().equals(arrival) && f.getGate().equals(gate)) {
+            if (f.getDeparture().equals(departure) && f.getGate().equals(gate)) {
                 throw new InvalidParameterException("This gate is already booked at this time");
             }
             if (f.getFlightNumber().equals(flightNumber)) {
@@ -66,6 +66,15 @@ public class FlightManager implements Serializable {
         if (!f.getFlightManager().equals(username)) {
             throw new InvalidParameterException("You are not the flight manager of this flight");
         }
+    }
+
+    public boolean canChangeGate(Flight f, String gate) {
+        for (Flight flight : allFlights.values()) {
+            if (flight.getArrival().equals(f.getArrival()) && flight.getGate().equals(gate)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void changeGate(Flight f, String gate) {
@@ -134,7 +143,7 @@ public class FlightManager implements Serializable {
             for (String flightNum : a) {
                 ScheduleHTML.write("<br/>");
                 ScheduleHTML.write("<html><b><span style=\"font-family:Arial, Helvetica, sans-serif;" +
-                        "text-align:center;color: #28324e;\">" + getFlight(flightNum).toString()+ "</span></b>");
+                        "text-align:center;color: #28324e;\">" + getFlight(flightNum).toString() + "</span></b>");
             }
             ScheduleHTML.close();
         } catch (Exception e) {
@@ -143,13 +152,50 @@ public class FlightManager implements Serializable {
         return file;
     }
 
-    public ArrayList<String> getFlights(User u){
+    public ArrayList<String> getFlights(User u) {
         ArrayList<String> ans = new ArrayList<>();
-        for(Flight f : allFlights.values()){
-            if(f.getPassengers().contains(u.getUsername())){
+        for (Flight f : allFlights.values()) {
+            if (f.getPassengers().contains(u.getUsername())) {
                 ans.add(f.getFlightNumber());
             }
         }
         return ans;
+    }
+
+    public ArrayList<String> getAvailableFlights(User u) {
+        ArrayList<String> flights = availableFlights();
+        ArrayList<String> userFlights = new ArrayList<>();
+        for (String flightNum : flights) {
+            if (getFlight(flightNum).getPassengers().contains(u.getUsername())) {
+                userFlights.add(flightNum);
+            }
+        }
+        for (String flightNum : userFlights) {
+            flights.remove(flightNum);
+        }
+        return flights;
+    }
+
+    public ArrayList<ArrayList<String>> convertFlights(ArrayList<String> flightNums, boolean manager) {
+        ArrayList<ArrayList<String>> ans = new ArrayList<>();
+        for (String flightNum : flightNums) {
+            ArrayList<String> flight = new ArrayList<>();
+            // flight#, from, to , arrival, dep
+            flight.add(flightNum);
+            flight.add(getFlight(flightNum).getFrom());
+            flight.add(getFlight(flightNum).getTo());
+            flight.add(getFlight(flightNum).getArrival().toString());
+            flight.add(getFlight(flightNum).getDeparture().toString());
+            if (manager) {
+                flight.add(getFlight(flightNum).getGate());
+            }
+            ans.add(flight);
+        }
+
+        return ans;
+    }
+
+    public HashMap<String, Flight> getAllFlights() {
+        return allFlights;
     }
 }
