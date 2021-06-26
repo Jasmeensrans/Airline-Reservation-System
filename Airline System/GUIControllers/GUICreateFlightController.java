@@ -1,9 +1,12 @@
 package GUIControllers;
 
 import Controllers.AbstractController;
+import Controllers.ControllerType;
 import Controllers.UseCaseBundle;
 import Usecases.FlightManager;
+import Usecases.UserManager;
 import entities.Flight;
+import entities.User;
 
 import java.time.LocalDateTime;
 
@@ -11,12 +14,15 @@ public class GUICreateFlightController extends AbstractController {
 
     private String username;
     private FlightManager fm;
+    private UserManager um;
 
 
     public GUICreateFlightController(UseCaseBundle bundle, String username) {
         super(bundle);
         this.username = username;
         this.fm = getBundle().getFlightManager();
+        setControllerType(ControllerType.CREATEFLIGHT);
+        this.um = getBundle().getUserManager();
     }
 
     @Override
@@ -26,7 +32,7 @@ public class GUICreateFlightController extends AbstractController {
     }
 
     public boolean validateTime(LocalDateTime arrival, LocalDateTime departure){
-        return true;
+        return arrival.isAfter(departure);
     }
 
     public boolean flightNumAvailable(String flightNum) {
@@ -44,5 +50,8 @@ public class GUICreateFlightController extends AbstractController {
 
     public void createFlight(String flightNum, String from, String to, LocalDateTime departureTime, LocalDateTime arrivalTime, String gate, int capacity) {
         fm.createFlight(from, to, flightNum, arrivalTime, departureTime, capacity, departureTime.toLocalDate(), gate, username);
+    }
+    public String getAppearance(){
+        return um.getUser(username).getAppearance();
     }
 }

@@ -21,7 +21,7 @@ public class GUILoginController extends AbstractController {
     public AbstractController run() {
         if (option == 1) { //sign up
             setPopNum(1);
-            return new GUISignUpController(getBundle());
+            return new GUISignUpController(getBundle(), false);
         } else if (option == 2) { //back
             setPopNum(1);
             return null;
@@ -46,12 +46,12 @@ public class GUILoginController extends AbstractController {
     }
 
     public boolean validateCredentials(String username, String password) {
-        boolean goodCredentials = um.userExists(username);
-        if (goodCredentials) {
+        if (um.userExists(username)) {
             if (um.loginVerify(um.getUser(username), password)) {
                 this.username = username;
+                return true;
             }
         }
-        return goodCredentials;
+        return false;
     }
 }

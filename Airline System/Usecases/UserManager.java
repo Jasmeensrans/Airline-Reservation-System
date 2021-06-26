@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.time.LocalDate;
 import java.util.Set;
@@ -77,6 +78,10 @@ public class UserManager implements Serializable {
         for(String u : users){
             getUser(u).getMessages().remove(user.getUsername());
         }
+    }
+
+    public Collection<String> getAllUsers() {
+        return allUsers.keySet();
     }
 }
 

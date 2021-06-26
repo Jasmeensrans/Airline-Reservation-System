@@ -12,11 +12,20 @@ public enum ControllerType {
 
     FLIGHT,
 
-    MESSAGE,
-
     MANAGINGFLIGHTS,
 
-    ADMINFLIGHT
+    ADMINFLIGHT,
+
+    USERMANGER,
+
+    MESSAGEHOME,
+
+    NEWMESSAGE,
+
+    MESSAGE,
+
+    CREATEFLIGHT
+
 
 
 }

@@ -19,12 +19,21 @@ public class GUIViewFactory {
                 return new GUIMenuView((GUIMenuController) newController);
             case FLIGHT:
                 return new GUIFlightView((GUIFlightController) newController);
-            case MESSAGE:
-                return new GUIMessageView((GUIMessageController) newController);
+            case MESSAGEHOME:
+                return new GUIMessageHomeView((GUIMessageHomeController) newController);
             case ADMINFLIGHT:
                 return new GUIAdminFlightView((GUIAdminFlightController) newController);
             case MANAGINGFLIGHTS:
                 return new GUIManagingFlightsView((GUIManagingFlightController) newController);
+            case USERMANGER:
+                return new GUIUserManagerView((GUIUserManagerController) newController);
+            case NEWMESSAGE:
+                return new GUINewMessageView((GUINewMessageController) newController);
+            case MESSAGE:
+                return new GUIMessageView((GUIMessageController) newController);
+            case CREATEFLIGHT:
+                return new GUICreateFlightView((GUICreateFlightController) newController);
+
         }
         return null;
     }

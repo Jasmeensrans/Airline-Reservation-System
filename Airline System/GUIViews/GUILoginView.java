@@ -76,7 +76,7 @@ public class GUILoginView extends AbstractView{
         signUpButton.setOnAction(e -> signUpButtonClicked());
 
         Scene scene = new Scene(layout, 600.0, 429.0);
-        //scene.getStylesheets().add("resources/light.css");
+        scene.getStylesheets().add("resources/light.css");
         return scene;
     }
 

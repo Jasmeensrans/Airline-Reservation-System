@@ -22,7 +22,7 @@ public class GUIMainEntryController extends AbstractController {
         }
         else if(option == 2){ //signup
             System.out.println("Sign Up selected");
-            return new GUISignUpController(getBundle());
+            return new GUISignUpController(getBundle(), false);
         }
         // if we reach here, something has gone wrong so we restart the program
         setPopNum(-2);

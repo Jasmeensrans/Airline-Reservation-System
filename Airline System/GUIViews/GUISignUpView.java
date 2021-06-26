@@ -29,87 +29,91 @@ public class GUISignUpView extends AbstractView {
 
     @Override
     public Scene createScene() {
-        Label title = new Label("Sign Up");
-        title.setLayoutX(600);
+        Label title;
+        if (controller.isAdmin()){
+            title = new Label("Create Admin Account");
+        } else {
+            title = new Label("Sign Up");
+        }
+        title.setLayoutX(230);
         title.setLayoutY(10);
-        title.setStyle("-fx-font-size: 29.0");
+        title.setStyle("-fx-font-size: 25.0");
 
         Label firstNameText = new Label("First Name");
-        firstNameText.setLayoutX(300);
+        firstNameText.setLayoutX(100);
         firstNameText.setLayoutY(83);
         firstNameText.setStyle("-fx-font-size: 14.0");
 
         Label lastNameText = new Label("Last Name");
-        lastNameText.setLayoutX(300);
+        lastNameText.setLayoutX(100);
         lastNameText.setLayoutY(145);
         lastNameText.setStyle("-fx-font-size: 14.0");
 
         Label usernameText = new Label("Username");
-        usernameText.setLayoutX(300);
+        usernameText.setLayoutX(100);
         usernameText.setLayoutY(208);
         usernameText.setStyle("-fx-font-size: 14.0");
 
         Label passwordText = new Label("Password");
-        passwordText.setLayoutX(300);
+        passwordText.setLayoutX(100);
         passwordText.setLayoutY(273);
         passwordText.setStyle("-fx-font-size: 14.0");
 
         Label dobText = new Label("Date of Birth");
-        dobText.setLayoutX(900);
+        dobText.setLayoutX(300);
         dobText.setLayoutY(83);
         dobText.setStyle("-fx-font-size: 14.0");
 
         Label passportNumText = new Label("Passport Number");
-        passportNumText.setLayoutX(900);
+        passportNumText.setLayoutX(300);
         passportNumText.setLayoutY(143);
         passportNumText.setStyle("-fx-font-size: 14.0");
 
         Label phoneNumText = new Label("Phone Number");
-        phoneNumText.setLayoutX(900);
+        phoneNumText.setLayoutX(300);
         phoneNumText.setLayoutY(208);
         phoneNumText.setStyle("-fx-font-size: 14.0");
 
         Label emailText = new Label("Email");
-        emailText.setLayoutX(900);
+        emailText.setLayoutX(300);
         emailText.setLayoutY(273);
         emailText.setStyle("-fx-font-size: 14.0");
 
         TextField firstName = new TextField();
-        firstName.setLayoutX(300);
+        firstName.setLayoutX(100);
         firstName.setLayoutY(103);
 
         TextField lastName = new TextField();
-        lastName.setLayoutX(300);
+        lastName.setLayoutX(100);
         lastName.setLayoutY(165);
 
         TextField username = new TextField();
-        username.setLayoutX(300);
+        username.setLayoutX(100);
         username.setLayoutY(228);
 
         PasswordField password = new PasswordField();
-        password.setLayoutX(300);
+        password.setLayoutX(100);
         password.setLayoutY(293);
 
         DatePicker datePicker = new DatePicker(LocalDate.now());
-        datePicker.setLayoutX(900);
+        datePicker.setLayoutX(300);
         datePicker.setLayoutY(103);
 
         TextField passport = new TextField();
-        passport.setLayoutX(900);
+        passport.setLayoutX(300);
         passport.setLayoutY(165);
 
         TextField phoneNumber = new TextField();
         phoneNumber.setLayoutY(228);
-        phoneNumber.setLayoutX(900);
+        phoneNumber.setLayoutX(300);
 
         TextField email = new TextField();
-        email.setLayoutX(900);
+        email.setLayoutX(300);
         email.setLayoutY(293);
 
         Button submitButton = new Button("Submit");
-        submitButton.setLayoutX(900);
+        submitButton.setLayoutX(400);
         submitButton.setLayoutY(377);
-        submitButton.setStyle("-fx-font-size: 15");
         submitButton.setDisable(true);
 
         submitButton.disableProperty().bind(
@@ -145,7 +149,7 @@ public class GUISignUpView extends AbstractView {
         );
 
         Button backButton = new Button("Back");
-        backButton.setLayoutX(300);
+        backButton.setLayoutX(100);
         backButton.setLayoutY(377);
 
         AnchorPane layout = new AnchorPane();
@@ -154,16 +158,16 @@ public class GUISignUpView extends AbstractView {
             Label errorMessage = new Label("This username is taken, please try again.");
             errorMessage.setStyle("-fx-text-fill: red");
             layout.getChildren().add(errorMessage);
-            errorMessage.setLayoutX(500);
-            errorMessage.setLayoutY(228);
+            errorMessage.setLayoutX(200);
+            errorMessage.setLayoutY(328);
 
         }
         if (error2) {
             Label errorMessage2 = new Label("This phone number is invalid, please try again.");
             errorMessage2.setStyle("-fx-text-fill: red");
             layout.getChildren().add(errorMessage2);
-            errorMessage2.setLayoutX(500);
-            errorMessage2.setLayoutY(293);
+            errorMessage2.setLayoutX(200);
+            errorMessage2.setLayoutY(355);
         }
 
 
@@ -171,7 +175,8 @@ public class GUISignUpView extends AbstractView {
         submitButton.setOnAction(e -> submitButtonClicked(firstName.getText(), lastName.getText(), datePicker.getValue(), passport.getText(), phoneNumber.getText(), username.getText(), password.getText(), email.getText()));
         backButton.setOnAction(e -> backButtonClicked());
 
-        Scene scene = new Scene(layout, 1200, 600);
+        Scene scene = new Scene(layout, 600, 429);
+        scene.getStylesheets().add("resources/light.css");
         return scene;
     }
 

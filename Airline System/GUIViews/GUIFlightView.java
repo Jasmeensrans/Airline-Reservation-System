@@ -27,48 +27,48 @@ public class GUIFlightView extends AbstractView {
 
     @Override
     public Scene createScene() {
-        Label flights = new Label("Flights");
-        flights.setStyle("-fx-font-size: 35");
-        flights.setLayoutY(10);
-        flights.setLayoutX(600);
+//        Label flights = new Label("Flights");
+//        flights.setStyle("-fx-font-size: 35");
+//        flights.setLayoutY(10);
+//        flights.setLayoutX(600);
 
         //available flights
         Label availableFlights = new Label("Available Flights");
-        availableFlights.setStyle("-fx-font-size: 20");
+        availableFlights.setStyle("-fx-font-size: 22");
         availableFlights.setLayoutX(200);
-        availableFlights.setLayoutY(60);
+        availableFlights.setLayoutY(10);
 
         //your flights
         Label yourFlights = new Label("Your Flights");
-        yourFlights.setStyle("-fx-font-size: 20");
-        yourFlights.setLayoutX(900);
-        yourFlights.setLayoutY(60);
+        yourFlights.setStyle("-fx-font-size: 22");
+        yourFlights.setLayoutX(650);
+        yourFlights.setLayoutY(10);
 
         Button reserveButton = new Button("Reserve");
         reserveButton.setLayoutX(200);
-        reserveButton.setLayoutY(535);
+        reserveButton.setLayoutY(400);
         reserveButton.setPrefSize(150, 10);
 
         Button cancelButton = new Button("Cancel");
-        cancelButton.setLayoutX(900);
-        cancelButton.setLayoutY(535);
+        cancelButton.setLayoutX(650);
+        cancelButton.setLayoutY(400);
         cancelButton.setPrefSize(150, 10);
 
         Button backButton = new Button("Back");
         backButton.setLayoutX(10);
-        backButton.setLayoutY(535);
+        backButton.setLayoutY(400);
 
         table1 = generateTable();
-        table1.setPrefHeight(429);
-        table1.setPrefWidth(600);
-        table1.setLayoutY(100);
+        table1.setPrefHeight(300);
+        table1.setPrefWidth(500);
+        table1.setLayoutY(70);
         table1.setItems(getFlightInfo(controller.getAvailableFlightInfo(), false));
 
         table2 = generateTable();
-        table2.setPrefWidth(600);
-        table2.setPrefHeight(429);
-        table2.setLayoutX(600);
-        table2.setLayoutY(100);
+        table2.setPrefWidth(500);
+        table2.setPrefHeight(300);
+        table2.setLayoutX(500);
+        table2.setLayoutY(70);
         table2.setItems(getFlightInfo(controller.getUserFlightInfo(), false));
 
         reserveButton.setOnAction(e -> reserveButtonClicked());
@@ -77,8 +77,9 @@ public class GUIFlightView extends AbstractView {
 
 
         AnchorPane layout = new AnchorPane();
-        layout.getChildren().addAll(table1, table2, reserveButton, flights, availableFlights, yourFlights, cancelButton, backButton);
-        Scene scene = new Scene(layout, 1200, 600);
+        layout.getChildren().addAll(table1, table2, reserveButton, availableFlights, yourFlights, cancelButton, backButton);
+        Scene scene = new Scene(layout, 1000, 429);
+        scene.getStylesheets().add("resources/" + controller.getAppearance() + ".css");
 
         return scene;
     }
@@ -86,18 +87,18 @@ public class GUIFlightView extends AbstractView {
     public TableView<FlightInfo> generateTable() {
         //Flight # column
         TableColumn<FlightInfo, String> flightNum = new TableColumn<>("Flight #");
-        flightNum.setCellValueFactory(new PropertyValueFactory<>("flight#"));
-        flightNum.setPrefWidth(130);
+        flightNum.setCellValueFactory(new PropertyValueFactory<>("flightNum"));
+        flightNum.setPrefWidth(100);
 
         //from column
         TableColumn<FlightInfo, String> from = new TableColumn<>("From");
         from.setCellValueFactory(new PropertyValueFactory<>("from"));
-        from.setPrefWidth(119);
+        from.setPrefWidth(100);
 
         //to column
         TableColumn<FlightInfo, String> to = new TableColumn<>("To");
         to.setCellValueFactory(new PropertyValueFactory<>("to"));
-        to.setPrefWidth(110);
+        to.setPrefWidth(50);
 
         //Dep
         TableColumn<FlightInfo, String> Departure = new TableColumn<>("Departure");
@@ -107,6 +108,7 @@ public class GUIFlightView extends AbstractView {
         TableColumn<FlightInfo, String> arrival = new TableColumn<>("Arrival");
         arrival.setCellValueFactory(new PropertyValueFactory<>("arrival"));
         arrival.setPrefWidth(125);
+
         TableView table = new TableView();
         table.getColumns().addAll(flightNum, from, to, Departure, arrival);
         return table;
@@ -133,24 +135,21 @@ public class GUIFlightView extends AbstractView {
     private void cancelButtonClicked() {
         ObservableList<FlightInfo> flightSelected, allUserFlights;
         allUserFlights = table2.getItems();
-        flightSelected = table2.getSelectionModel().getSelectedItems();
-
-        for (FlightInfo flight : flightSelected) {
-            controller.cancelFlight(flight.getFlightNum());
+        if(table2.getSelectionModel().getSelectedItem() != null){
+            FlightInfo flightInfo = table2.getSelectionModel().getSelectedItem();
+            controller.cancelFlight(flightInfo.getFlightNum());
+            allUserFlights.remove(flightInfo);
         }
-        flightSelected.forEach(allUserFlights::remove);
-
     }
 
     private void reserveButtonClicked() {
         ObservableList<FlightInfo> flightSelected, allFlights;
         allFlights = table1.getItems();
-        flightSelected = table1.getSelectionModel().getSelectedItems();
-
-        for (FlightInfo flight : flightSelected) {
+        if(table1.getSelectionModel().getSelectedItem() != null){
+            FlightInfo flight = table1.getSelectionModel().getSelectedItem();
             controller.reserveFlight(flight.getFlightNum());
+            allFlights.remove(flight);
         }
-        flightSelected.forEach(allFlights::remove);
     }
 
     public class FlightInfo {

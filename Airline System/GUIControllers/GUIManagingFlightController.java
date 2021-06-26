@@ -28,7 +28,7 @@ public class GUIManagingFlightController extends AbstractController {
 
     @Override
     public AbstractController run() {
-        switch (option){
+        switch (option) {
             case 1: //createFlight
                 setPopNum(0);
                 return new GUICreateFlightController(getBundle(), username);
@@ -43,15 +43,16 @@ public class GUIManagingFlightController extends AbstractController {
         return username;
     }
 
-    public ArrayList<ArrayList<String>> getManagingFlights(){
+    public ArrayList<ArrayList<String>> getManagingFlights() {
         // flight number, from, to, ari, dep, gate
         return fm.convertFlights(fm.managingFlights(username), true);
     }
 
-    public void backClicked(){
+    public void backClicked() {
         option = 2;
     }
-    public void createFlight(){
+
+    public void createFlight() {
         option = 1;
     }
 
@@ -64,14 +65,19 @@ public class GUIManagingFlightController extends AbstractController {
     }
 
     public void deleteFlight(String flightNum) {
-        for (String u : fm.getFlight(flightNum).getPassengers()) {
-            for (Integer i : um.getUser(u).getTickets()) {
-                if (tm.getTicket(i).getFlightNumber().equals(flightNum)) {
-                    tm.deleteTicket(um.getUser(username), tm.getTicket(i));
-                    tm.deleteAllTickets(fm.getFlight(flightNum));
+        try {
+            for (String u : fm.getFlight(flightNum).getPassengers()) {
+                for (Integer i : um.getUser(u).getTickets()) {
+                    if (tm.getTicket(i).getFlightNumber().equals(flightNum)) {
+                        tm.deleteTicket(um.getUser(username), tm.getTicket(i));
+                    }
                 }
             }
-        }
+            tm.deleteAllTickets(fm.getFlight(flightNum));
+        } catch (Exception ignored){}
         fm.deleteFlight(fm.getFlight(flightNum), username);
+    }
+    public String getAppearance(){
+        return um.getUser(username).getAppearance();
     }
 }

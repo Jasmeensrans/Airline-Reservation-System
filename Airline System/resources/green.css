@@ -1,0 +1,116 @@
+.root{
+    -fx-background-color: Linen;
+}
+
+.label{
+    -fx-text-fill: green;
+}
+
+.button{
+    -fx-background-color: Lightgreen;
+    -fx-text-fill: Green;
+}
+
+.text-field{
+    -fx-background-color: Lightgreen;
+    -fx-text-fill: Green;
+}
+.list-cell:even {
+    -fx-background-color: Lightgreen;
+    -fx-text-fill: Green;
+}
+
+.list-cell:odd {
+    -fx-background-color: derive(#F8F8F8, -9%);
+    -fx-text-fill: Green;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: derive(#BB86FC, 7%);
+    -fx-text-fill: Green;
+}
+
+.scroll-pane {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.combo-box .list-cell {
+    -fx-background-color: Lightgreen;
+    -fx-text-fill: Green;
+}
+
+.choice-box {
+    -fx-background-color: Lightgreen;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: Lightgreen;
+    -fx-text-fill: Green;
+    -fx-mark-color: Green;
+}
+
+#BorderPane-threads {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+#vbox-threads {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.scroll-pane {
+    -fx-background: derive(#F8F8F8, -2%);
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: Lightgreen;
+}
+
+.grid {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+#hbox-group-threads {
+    -fx-background-color: derive(#F8F8F8, -2%);
+    -fx-text-fill: Green;
+}
+
+#label-threads {
+    -fx-background-color: derive(#F8F8F8, -2%);
+    -fx-text-fill: Green;
+}
+
+.table-view {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.table-cell {
+    -fx-text-fill: Green;
+}
+
+.table-view .column-header {
+    -fx-background-color: Lightgreen;
+}
+
+.table-row-cell:even {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.table-row-cell:odd {
+    -fx-background-color: Lightgreen;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: derive(#BB86FC, 7%);
+}
+
+.spinner .increment-arrow-button {
+    -fx-body-color: Lightgreen;
+}
+
+.spinner .decrement-arrow-button {
+    -fx-body-color: Lightgreen;
+}

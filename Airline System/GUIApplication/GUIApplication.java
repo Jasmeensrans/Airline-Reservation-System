@@ -69,8 +69,11 @@ public class GUIApplication extends Application {
         }
         if (!viewStack.empty()) {
             window.setScene(viewStack.peek().createScene());
+            window.centerOnScreen();
         }
     }
 
-
+    public Stage getWindow() {
+        return window;
+    }
 }

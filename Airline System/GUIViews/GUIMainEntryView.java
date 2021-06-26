@@ -22,21 +22,21 @@ public class GUIMainEntryView extends AbstractView {
 
         Label welcome = new Label("Airline Reservation System");
         //welcome.setTextFill(Color.DARKGRAY);
-        welcome.setLayoutX(200);
-        welcome.setLayoutY(68);
-        welcome.setStyle("-fx-font-size: 18.0");
+        welcome.setLayoutX(140);
+        welcome.setLayoutY(35);
+        welcome.setStyle("-fx-font-size: 30.0");
 
         Button loginButton = new Button("Log In");
         //line may do nothing
         //loginButton.setTextFill(Color.DARKGRAY);
         loginButton.setLayoutX(214);
-        loginButton.setLayoutY(195);
+        loginButton.setLayoutY(155);
         loginButton.setStyle("-fx-font-size: 18.0");
 
         Button signUpButton = new Button("Sign Up");
         //signUpButton.setTextFill(Color.DARKGRAY);
         signUpButton.setLayoutX(311);
-        signUpButton.setLayoutY(195);
+        signUpButton.setLayoutY(155);
         signUpButton.setStyle("-fx-font-size: 18.0");
 
         AnchorPane layout = new AnchorPane();
@@ -45,8 +45,8 @@ public class GUIMainEntryView extends AbstractView {
         loginButton.setOnAction(e -> loginButtonClicked());
         signUpButton.setOnAction(e -> signUpButtonClicked());
 
-        Scene scene = new Scene(layout, 600, 600);
-        // scene.getStylesheets.add(..)
+        Scene scene = new Scene(layout, 600, 429);
+        scene.getStylesheets().add("resources/light.css");
         return scene;
     }
 

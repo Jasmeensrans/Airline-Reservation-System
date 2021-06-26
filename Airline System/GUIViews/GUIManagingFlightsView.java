@@ -24,30 +24,31 @@ public class GUIManagingFlightsView extends GUIFlightView {
     @Override
     public Scene createScene() {
         Label title = new Label("Managing Flights");
-        title.setStyle("-fx-font-size: 30");
-        title.setLayoutX(200);
-        title.setLayoutY(50);
+        title.setStyle("-fx-font-size: 20");
+        title.setLayoutX(220);
+        title.setLayoutY(10);
 
         table = generateTable();
-        table.setPrefHeight(429);
-        table.setPrefWidth(600);
-        table.setLayoutY(100);
+        table.setPrefHeight(300);
+        table.setPrefWidth(570);
+        table.setLayoutY(50);
+        table.setLayoutX(10);
 
         // gate colomn
         TableColumn<FlightInfo, String> gateColumn = new TableColumn<>("Gate");
         gateColumn.setCellValueFactory(new PropertyValueFactory<>("gate"));
-        gateColumn.setPrefWidth(110);
+        gateColumn.setPrefWidth(70);
         table.getColumns().addAll(gateColumn);
         table.setItems(getFlightInfo(controller.getManagingFlights(), true));
 
         TextField gate = new TextField();
         gate.setPromptText("Enter Gate");
-        gate.setLayoutY(100);
-        gate.setLayoutX(700);
+        gate.setLayoutY(400);
+        gate.setLayoutX(400);
 
         Button changeGate = new Button("Change Gate");
-        changeGate.setLayoutX(900);
-        changeGate.setLayoutY(100);
+        changeGate.setLayoutX(300);
+        changeGate.setLayoutY(400);
         // bind button
         changeGate.setDisable(true);
         changeGate.disableProperty().bind(
@@ -58,18 +59,16 @@ public class GUIManagingFlightsView extends GUIFlightView {
         );
 
         Button deleteFlight = new Button("Delete Flight");
-        deleteFlight.setStyle("-fx-font-size: 20");
-        deleteFlight.setLayoutX(700);
-        deleteFlight.setLayoutY(200);
+        deleteFlight.setLayoutX(70);
+        deleteFlight.setLayoutY(400);
 
         Button createFlight = new Button("Create Flight");
-        createFlight.setStyle("-fx-font-size: 20");
-        createFlight.setLayoutX(700);
-        createFlight.setLayoutY(300);
+        createFlight.setLayoutX(200);
+        createFlight.setLayoutY(400);
 
         Button back = new Button("Back");
-        back.setLayoutX(1100);
-        back.setLayoutY(500);
+        back.setLayoutX(10);
+        back.setLayoutY(400);
 
         back.setOnAction(e -> backButtonClicked());
         createFlight.setOnAction(e -> createFlightClicked());
@@ -79,17 +78,18 @@ public class GUIManagingFlightsView extends GUIFlightView {
         AnchorPane layout = new AnchorPane();
         layout.getChildren().addAll(title, table, gate, changeGate, deleteFlight, createFlight, back);
 
-        if(error){
+        if (error) {
             //print that this gate is taken somewhere
             // add label to layout
             Label error = new Label("This gate is already booked at this time");
             error.setStyle("-fx-text-fill: red");
-            error.setLayoutY(200);
-            error.setLayoutX(900);
+            error.setLayoutY(350);
+            error.setLayoutX(300);
             layout.getChildren().addAll(error);
         }
 
-        Scene scene = new Scene(layout, 1200, 600);
+        Scene scene = new Scene(layout, 600, 429);
+        scene.getStylesheets().add("resources/" + controller.getAppearance() + ".css");
 
         return scene;
     }
@@ -97,28 +97,25 @@ public class GUIManagingFlightsView extends GUIFlightView {
     private void deleteFlightClicked() {
         ObservableList<FlightInfo> flightSelected, allFlights;
         allFlights = table.getItems();
-        flightSelected = table.getSelectionModel().getSelectedItems();
-
-        for(FlightInfo flight : flightSelected){
+        if(table.getSelectionModel().getSelectedItem() != null){
+            FlightInfo flight = table.getSelectionModel().getSelectedItem();
             controller.deleteFlight(flight.getFlightNum());
+            allFlights.remove(flight);
         }
-        flightSelected.forEach(allFlights::remove);
     }
 
     private void changeGateClicked(String gate) {
         ObservableList<FlightInfo> flightSelected, allFlights;
         allFlights = table.getItems();
-        flightSelected = table.getSelectionModel().getSelectedItems();
-
-        for(FlightInfo flight : flightSelected){
-            if(!controller.gateAvailable(flight.getFlightNum(), gate)){
+        if(table.getSelectionModel().getSelectedItem() != null){
+            FlightInfo flightInfo = table.getSelectionModel().getSelectedItem();
+            if (!controller.gateAvailable(flightInfo.getFlightNum(), gate)) {
                 error = true;
                 application.setNextScene(controller, null);
             } else {
-                controller.changeGate(flight.getFlightNum(), gate);
+                controller.changeGate(flightInfo.getFlightNum(), gate);
             }
         }
-        flightSelected.forEach(allFlights::remove);
     }
 
     private void backButtonClicked() {
@@ -126,7 +123,7 @@ public class GUIManagingFlightsView extends GUIFlightView {
         application.setNextScene(controller, controller.run());
     }
 
-    private void createFlightClicked(){
+    private void createFlightClicked() {
         controller.createFlight();
         application.setNextScene(controller, controller.run());
     }

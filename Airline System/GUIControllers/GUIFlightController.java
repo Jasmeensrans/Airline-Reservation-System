@@ -55,7 +55,12 @@ public class GUIFlightController extends AbstractController {
     }
 
     public void reserveFlight(String flightNum) {
-        fm.addPassenger(fm.getFlight(flightNum), um.getUser(username));
-        tm.CreateTicket(um.getUser(username), um.getUser(username).getFirstName(), um.getUser(username).getLastName(), flightNum, fm.getFlight(flightNum).getGate(), fm.getFlight(flightNum).getTo(), fm.getFlight(flightNum).getFrom(), fm.getFlight(flightNum).getArrival(), fm.getFlight(flightNum).getDeparture());
+        try {
+            fm.addPassenger(fm.getFlight(flightNum), um.getUser(username));
+            tm.CreateTicket(um.getUser(username), um.getUser(username).getFirstName(), um.getUser(username).getLastName(), flightNum, fm.getFlight(flightNum).getGate(), fm.getFlight(flightNum).getTo(), fm.getFlight(flightNum).getFrom(), fm.getFlight(flightNum).getArrival(), fm.getFlight(flightNum).getDeparture());
+        } catch(Exception Ignored){}
+    }
+    public String getAppearance(){
+        return um.getUser(username).getAppearance();
     }
 }

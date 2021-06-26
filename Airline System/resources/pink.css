@@ -1,0 +1,116 @@
+.root{
+    -fx-background-color: LavenderBlush;
+}
+
+.label{
+    -fx-text-fill: MediumVioletRed;
+}
+
+.button{
+    -fx-background-color: LightPink;
+    -fx-text-fill: MediumVioletRed;
+}
+
+.text-field{
+    -fx-background-color: LightPink;
+    -fx-text-fill: MediumVioletRed;
+}
+.list-cell:even {
+    -fx-background-color: LightPink;
+    -fx-text-fill: MediumVioletRed;
+}
+
+.list-cell:odd {
+    -fx-background-color: derive(#F8F8F8, -9%);
+    -fx-text-fill: MediumVioletRed;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: derive(#BB86FC, 7%);
+    -fx-text-fill: MediumVioletRed;
+}
+
+.scroll-pane {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.combo-box .list-cell {
+    -fx-background-color: LightPink;
+    -fx-text-fill: MediumVioletRed;
+}
+
+.choice-box {
+    -fx-background-color: LightPink;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: LightPink;
+    -fx-text-fill: MediumVioletRed;
+    -fx-mark-color: MediumVioletRed;
+}
+
+#BorderPane-threads {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+#vbox-threads {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.scroll-pane {
+    -fx-background: derive(#F8F8F8, -2%);
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: LightPink;
+}
+
+.grid {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+#hbox-group-threads {
+    -fx-background-color: derive(#F8F8F8, -2%);
+    -fx-text-fill: MediumVioletRed;
+}
+
+#label-threads {
+    -fx-background-color: derive(#F8F8F8, -2%);
+    -fx-text-fill: MediumVioletRed;
+}
+
+.table-view {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.table-cell {
+    -fx-text-fill: MediumVioletRed;
+}
+
+.table-view .column-header {
+    -fx-background-color: LightPink;
+}
+
+.table-row-cell:even {
+    -fx-background-color: derive(#F8F8F8, -2%);
+}
+
+.table-row-cell:odd {
+    -fx-background-color: LightPink;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: derive(#BB86FC, 7%);
+}
+
+.spinner .increment-arrow-button {
+    -fx-body-color: LightPink;
+}
+
+.spinner .decrement-arrow-button {
+    -fx-body-color: LightPink;
+}

@@ -12,21 +12,30 @@ public class GUISignUpController extends AbstractController {
     private UserManager um;
     private int option;
     private String username;
+    private boolean admin = false;
 
-    public GUISignUpController(UseCaseBundle bundle) {
+    public GUISignUpController(UseCaseBundle bundle, boolean admin) {
         super(bundle);
         this.um = bundle.getUserManager();
         setControllerType(ControllerType.SIGNUP);
+        this.admin = admin;
+        if (admin){
+            this.username = "admin_account";
+        }
     }
+
 
     @Override
     public AbstractController run() {
         if (option == 1) { //back
             setPopNum(1);
             return null;
-        } else if (option == 2) { //create account
+        } if (option == 2) { //create account
             setPopNum(1);
             return new GUIMenuController(getBundle(), username);
+        } if(option == 3) { //admin account created
+            setPopNum(1);
+            return null;
         }
         return null;
     }
@@ -44,8 +53,20 @@ public class GUISignUpController extends AbstractController {
             // this username is taken
             return false;
         }
-        // is there a way to make phone num be in for sure?
-        um.createUser(firstName, lastName, date, passportNum, BigInteger.valueOf(phoneNum), username, password, email, um.Passenger());
+        if(admin){
+            um.createUser(firstName, lastName, date, passportNum, BigInteger.valueOf(phoneNum), username, password, email, um.Admin());
+        } else{
+            um.createUser(firstName, lastName, date, passportNum, BigInteger.valueOf(phoneNum), username, password, email, um.Passenger());
+            this.username = username;
+        }
         return true;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public String getAppearance(){
+        return um.getUser(username).getAppearance();
     }
 }

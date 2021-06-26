@@ -7,7 +7,7 @@ import Usecases.UserManager;
 
 public class GUIMenuController extends AbstractController {
 
-    String username;
+    private String username;
 
     private int option;
     private UserManager um;
@@ -21,19 +21,22 @@ public class GUIMenuController extends AbstractController {
 
     @Override
     public AbstractController run() {
-        //1. Flight manager, 2. Message Manager, 3. Logout
+        //1. Flight manager, 2. Message Manager, 3. Logout, 4. User Manager (Admin account only)
         switch (option) {
             case 1: //Flight manager
-                if(um.getUser(username).getType().equals(um.Passenger())){
+                if (um.getUser(username).getType().equals(um.Passenger())) {
                     return new GUIFlightController(getBundle(), username);
                 } else {
                     return new GUIAdminFlightController(getBundle(), username);
                 }
             case 2: //Message Manager
-                return new GUIMessageController(getBundle(), username);
+                return new GUIMessageHomeController(getBundle(), username);
             case 3: //logout
                 setPopNum(1);
                 return null;
+
+            case 4: //user manager
+                return new GUIUserManagerController(getBundle(), username);
 
         }
         return null;
@@ -51,7 +54,19 @@ public class GUIMenuController extends AbstractController {
         option = 3;
     }
 
+    public void userManagerClicked() {
+        option = 4;
+    }
+
     public String getUsername() {
         return username;
+    }
+
+    public String getAppearance(){
+        return um.getUser(username).getAppearance();
+    }
+
+    public void changeAppearance(String value) {
+        um.getUser(username).setAppearance(value);
     }
 }

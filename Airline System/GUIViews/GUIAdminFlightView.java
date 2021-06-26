@@ -57,7 +57,12 @@ public class GUIAdminFlightView extends AbstractView {
         layout.getChildren().addAll(titleBox, allButtons, backButtonBox);
         layout.setPadding(new Insets(15.0, 0.0, 15.0, 0.0));
 
+        backButton.setOnAction(e -> backButtonClicked());
+        myFlights.setOnAction(e -> myFlightsButtonClicked());
+        managingFlights.setOnAction(e -> managingFlightsButtonClicked());
+
         Scene scene = new Scene(layout, 600, 429);
+        scene.getStylesheets().add("resources/" + controller.getAppearance() + ".css");
 
         return scene;
     }

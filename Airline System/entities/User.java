@@ -19,6 +19,7 @@ public class User implements Serializable {
     private HashMap<String, ArrayList<Integer>> messages;
     private ArrayList<Integer> tickets;
     private UserType type;
+    private String appearance="light";
 
     public User(String firstName, String lastName, LocalDate DOB, String passportNumber, BigInteger phoneNumber, String username, String password, String email, UserType type) {
         this.firstName = firstName;
@@ -78,4 +79,11 @@ public class User implements Serializable {
         return tickets;
     }
 
+    public String getAppearance() {
+        return appearance;
+    }
+
+    public void setAppearance(String appearance) {
+        this.appearance = appearance;
+    }
 }

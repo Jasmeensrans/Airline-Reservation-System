@@ -13,4 +13,6 @@ public abstract class AbstractView {
     }
 
     public abstract Scene createScene();
+
+
 }

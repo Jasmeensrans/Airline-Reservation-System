@@ -201,6 +201,7 @@ public class GUICreateFlightView extends AbstractView {
         }
 
         Scene scene = new Scene(layout, 1200, 600);
+        scene.getStylesheets().add("resources/" + controller.getAppearance() + ".css");
         return scene;
 
     }
@@ -231,8 +232,10 @@ public class GUICreateFlightView extends AbstractView {
             gateError = true;
             application.setNextScene(controller, null);
         }
-        controller.createFlight(flightNum, from, to, departureTime, arrivalTime, gate, Integer.parseInt(capacity));
-        application.setNextScene(controller, controller.run());
+        if(controller.validateTime(arrivalTime, departureTime) && controller.flightNumAvailable(flightNum) && controller.gateBooked(gate, departureTime)){
+            controller.createFlight(flightNum, from, to, departureTime, arrivalTime, gate, Integer.parseInt(capacity));
+            application.setNextScene(controller, controller.run());
+        }
     }
 
     private void backButtonClicked() {
