@@ -1,0 +1,17 @@
+Welcome to the AirLine Reservation System
+
+This system has two types of user accounts, Passengers and Admins
+
+Admin accounts can create flights, delete flights they've created and change the gates they are departing from. They can also reserve flights and
+cancel the flight reservations. For the terminal program, flights created must depart and arrive on the same day. Admins can message users, they can also
+message all of the passengers of the flights they are managing. Admins are flight managers for the flights that they
+have created.
+
+Passengers can reserve flights and cancel flight reservations. They can also message the flight managers of flights they
+have reserved. To create a passenger account, you must sign up.
+
+Admin accounts can be created by the main admin account. All types of accounts can be deleted by the main admin account as well.
+You can log into the main admin account using the username "admin_account" and password "password123".
+
+To run the program terminal program, please run the main file.
+To run the GUI program, please run the GUIMain file, located in the GUIApplication package.
